@@ -1,8 +1,8 @@
 {
   "service": {
-    "service": "product-service",
+    "service": "products-service",
     "serviceObject": {
-      "name": "product-service"
+      "name": "products-service"
     },
     "provider": {
       "name": "aws",
@@ -87,7 +87,7 @@
           "HelloLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/product-service-dev-hello"
+              "LogGroupName": "/aws/lambda/products-service-dev-hello"
             }
           },
           "IamRoleLambdaExecution": {
@@ -115,7 +115,7 @@
                     "Fn::Join": [
                       "-",
                       [
-                        "product-service",
+                        "products-service",
                         "dev",
                         "lambda"
                       ]
@@ -132,7 +132,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/product-service-dev*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/products-service-dev*:*"
                           }
                         ]
                       },
@@ -143,7 +143,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/product-service-dev*:*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/products-service-dev*:*:*"
                           }
                         ]
                       }
@@ -156,7 +156,7 @@
                 "Fn::Join": [
                   "-",
                   [
-                    "product-service",
+                    "products-service",
                     "dev",
                     {
                       "Ref": "AWS::Region"
@@ -174,11 +174,11 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/product-service/dev/1629731819219-2021-08-23T15:16:59.219Z/product-service.zip"
+                "S3Key": "serverless/products-service/dev/1629973922206-2021-08-26T10:32:02.206Z/products-service.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "nodejs12.x",
-              "FunctionName": "product-service-dev-hello",
+              "FunctionName": "products-service-dev-hello",
               "MemorySize": 1024,
               "Timeout": 6,
               "Role": {
@@ -192,20 +192,20 @@
               "HelloLogGroup"
             ]
           },
-          "HelloLambdaVersionShbeU0V5tv2iGAfGltijjsBt8t2PJfToufNs0saPjg": {
+          "HelloLambdaVersionNMi7H3lVK7TRXeHFcKQAbD6oeOr9UQk0txrorkqUSX0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "HelloLambdaFunction"
               },
-              "CodeSha256": "GW1twneUfbII4ivHKYUCWqKzLzYjtVQouC2a9diHopo="
+              "CodeSha256": "d7xXhNEPTIEZWYxncMFAr6jLyKYHc3Za24yxZ1zIhk4="
             }
           },
           "ApiGatewayRestApi": {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
-              "Name": "dev-product-service",
+              "Name": "dev-products-service",
               "EndpointConfiguration": {
                 "Types": [
                   "EDGE"
@@ -275,7 +275,7 @@
               "HelloLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1629731816548": {
+          "ApiGatewayDeployment1629973919722": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -331,16 +331,16 @@
               "Ref": "ServerlessDeploymentBucket"
             },
             "Export": {
-              "Name": "sls-product-service-dev-ServerlessDeploymentBucketName"
+              "Name": "sls-products-service-dev-ServerlessDeploymentBucketName"
             }
           },
           "HelloLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionShbeU0V5tv2iGAfGltijjsBt8t2PJfToufNs0saPjg"
+              "Ref": "HelloLambdaVersionNMi7H3lVK7TRXeHFcKQAbD6oeOr9UQk0txrorkqUSX0"
             },
             "Export": {
-              "Name": "sls-product-service-dev-HelloLambdaFunctionQualifiedArn"
+              "Name": "sls-products-service-dev-HelloLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -366,7 +366,7 @@
               ]
             },
             "Export": {
-              "Name": "sls-product-service-dev-ServiceEndpoint"
+              "Name": "sls-products-service-dev-ServiceEndpoint"
             }
           }
         }
@@ -468,13 +468,13 @@
             }
           }
         ],
-        "name": "product-service-dev-hello",
+        "name": "products-service-dev-hello",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionShbeU0V5tv2iGAfGltijjsBt8t2PJfToufNs0saPjg"
+        "versionLogicalId": "HelloLambdaVersionNMi7H3lVK7TRXeHFcKQAbD6oeOr9UQk0txrorkqUSX0"
       }
     },
     "configValidationMode": "warn",
@@ -493,10 +493,10 @@
     },
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "/Users/ihar/Documents/shop-react-redux-cloudfront1/aws-shop-be/product-service/.serverless/product-service.zip"
+    "artifact": "/Users/ihar/Documents/shop-react-redux-cloudfront1/aws-shop-be/products-service/.serverless/products-service.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/product-service/dev/1629731819219-2021-08-23T15:16:59.219Z",
-    "artifact": "product-service.zip"
+    "artifactDirectoryName": "serverless/products-service/dev/1629973922206-2021-08-26T10:32:02.206Z",
+    "artifact": "products-service.zip"
   }
 }
