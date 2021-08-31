@@ -1,0 +1,19 @@
+{
+  "name": "products-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "task-3"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-webpack": "^5.5.2",
+    "webpack": "^5.51.1"
+  }
+}
