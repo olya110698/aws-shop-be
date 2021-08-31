@@ -4,55 +4,63 @@
     "description": "Large family book-album (leather) burgundy",
     "id": "..//images/image1.jpg",
     "price": 149,
-    "title": "Large family book-album"
+    "title": "Large family book-album",
+    "imageId": "image1"
   },
   {
     "count": 6,
     "description": "My goals and achievements book-album (blue) leather",
     "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a0",
     "price": 129,
-    "title": "My goals and achievements book-album"
+    "title": "My goals and achievements book-album",
+    "imageId": "image2"
   },
   {
     "count": 7,
     "description": "Our family's recipes album book (brown) leather",
     "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
     "price": 149,
-    "title": "Our family's recipes album book"
+    "title": "Our family's recipes album book",
+    "imageId": "image3"
   },
   {
     "count": 12,
     "description": "Advice and love book-album (white)",
     "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a1",
     "price": 120,
-    "title": "Advice and love book-album"
+    "title": "Advice and love book-album",
+    "imageId": "image4"
   },
   {
     "count": 7,
     "description": "Our Child Book Album (Pink)",
     "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a3",
     "price": 149,
-    "title": "Our Child Book Album"
+    "title": "Our Child Book Album",
+    "imageId": "image5"
   },
   {
     "count": 8,
     "description": "Sabaneev. Hunter's book",
     "id": "7567ec4b-b10c-48c5-9345-fc73348a80a1",
     "price": 160,
-    "title": "Sabaneev. Hunter's book"
+    "title": "Sabaneev. Hunter's book",
+    "imageId": "image6"
   },
   {
     "count": 2,
     "description": "Sabaneev. Hunter's book (with bronze onlays, in a gift case)",
     "id": "7567ec4b-b10c-48c5-9445-fc73c48a80a2",
     "price": 170,
-    "title": "Sabaneev. Hunter's book (in a gift case)"
+    "title": "Sabaneev. Hunter's book (in a gift case)",
+    "imageId": "image7"
   },
   {
     "count": 3,
     "description": "Gift case",
     "id": "7567ec4b-b10c-45c5-9345-fc73c48a80a1",
     "price": 15,
-    "title": "Gift case"
+    "title": "Gift case",
+    "imageId": "image8"
   }
 ]
