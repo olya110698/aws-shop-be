@@ -1,5 +1,5 @@
 {
-  "name": "product-service",
+  "name": "products-service",
   "version": "1.0.0",
   "description": "Product service for AWS App",
   "main": "index.js",
@@ -21,8 +21,8 @@
     "eslint-config-prettier": "^8.3.0",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
-    "serverless-webpack": "^5.5.2",
-    "webpack": "^5.51.1"
+    "serverless-webpack": "^5.5.1",
+    "webpack": "^5.50.0"
   },
   "jest": {
     "testEnvironment": "node",
