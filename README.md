@@ -31,8 +31,8 @@ TOTAL POINTS - _**11 points**_
 
 # **FrontEnd**
 
-- FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d3ph6tvz43noms.cloudfront.net/
-- FrontEnd Task-3 Pull Request : - https://github.com/SeLub/shop-aws-fe/pull/2
+- FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d17dwp6lmvxsug.cloudfront.net/
+- FrontEnd Task-3 Pull Request : - https://github.com/olya110698/shop-react-redux-cloudfront/pull/2
 
 # **BackEnd**
 
