@@ -36,19 +36,13 @@ TOTAL POINTS - _**11 points**_
 
 # **BackEnd**
 
-<<<<<<< HEAD
+---
+
 | Lambda          | Description                   | Method | URL                                                                                                      |
 | --------------- | ----------------------------- | ------ | -------------------------------------------------------------------------------------------------------- |
 | getProductsList | get ALL products in JSON      | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products                                      |
 | getProductsById | get ONE product in JSON by id | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80a4 |
 | getProductsById | Product not found             | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products/777                                  |
-=======
-| Lambda          | Description                   | Method | URL                                                                                                         |
-| --------------- | ----------------------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
-| getProductsList | get ALL products in JSON      | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products                                      |
-| getProductsById | get ONE product in JSON by id | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80a4 |
-| getProductsById | Product not found             | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products/777                                 |
->>>>>>> ee91dc4ef756fbee0eeee8ed3a45dae5635cfa54
 
 ---
 
