@@ -31,16 +31,16 @@ TOTAL POINTS - _**11 points**_
 
 # **FrontEnd**
 
-- FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://d17dwp6lmvxsug.cloudfront.net/
+- FrontEnd integrated with product service HTTP API & images from S3 Bucket: https://dsqgr9m2xn6dg.cloudfront.net/
 - FrontEnd Task-3 Pull Request : - https://github.com/olya110698/shop-react-redux-cloudfront/pull/2
 
 # **BackEnd**
 
 | Lambda          | Description                   | Method | URL                                                                                                         |
 | --------------- | ----------------------------- | ------ | ----------------------------------------------------------------------------------------------------------- |
-| getProductsList | get ALL products in JSON      | GET    | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products                                      |
-| getProductsById | get ONE product in JSON by id | GET    | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73348a80a1 |
-| getProductsById | Product not found             | GET    | https://8kbhxjy1vk.execute-api.eu-central-1.amazonaws.com/dev/products/777                                  |
+| getProductsList | get ALL products in JSON      | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products                                      |
+| getProductsById | get ONE product in JSON by id | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80a4 |
+| getProductsById | Product not found             | GET    | https://8i2g9e3a1b.execute-api.eu-west-1.amazonaws.com/dev/products/777                                 |
 
 ---
 
