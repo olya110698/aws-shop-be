@@ -28,11 +28,11 @@ provider:
   stage: dev
   region: eu-west-1
   environment:
-    PG_HOST: lesson4.cvglwkuthayx.eu-west-1.rds.amazonaws.com
-    PG_PORT: 5432
-    PG_DATABASE: lesson4
-    PG_USERNAME: olya3230126
-    PG_PASSWORD: olya3230126
+    PG_HOST: ${env:PG_HOST}
+    PG_PORT: ${env:PG_PORT}
+    PG_DATABASE: ${env:PG_DATABASE}
+    PG_USERNAME: ${env:PG_USERNAME}
+    PG_PASSWORD: ${env:PG_PASSWORD}
 
 plugins:
   - serverless-webpack
@@ -82,8 +82,8 @@ functions:
           method: get
           cors: true
 
-  # hello:
-  #   handler: название файла с клиентом.invoke
+  hello:
+    handler: products_and_stocks.invoke
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
