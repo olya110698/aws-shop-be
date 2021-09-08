@@ -12,7 +12,7 @@ TOTAL POINTS - _** 3 points**_
 
 ## **Evalution Criteria**
 
-- [x] 1 - TASK 4.1 is implemented => Link to [SQL script with exemple data]
+- [x] 1 - TASK 4.1 is implemented => Link to [SQL script with exemple data] https://github.com/olya110698/aws-shop-be/blob/task_4/products-service/sql_scripts/products_and_stocks.sql
 - [x] 3 - TASK 4.2 is implemented lambda links are provided and returns data
 - [ ] 4 - TASK 4.3 is implemented lambda links are provided and products is stored in DB (call TASK 4.2 to see the product)
 - [ ] 5 - Your own Frontend application is integrated with product service (/products API) and products from product-service are represented on Frontend. Link to a working Front-End application is provided for cross-check reviewer.
