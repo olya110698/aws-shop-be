@@ -49,4 +49,4 @@ TOTAL POINTS - _**11 points**_
 
 # **Swagger documentation**
 
-# https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
+# https://app.swaggerhub.com/apis/olya110698/task3/1.0.0-oas3
