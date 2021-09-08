@@ -1,0 +1,35 @@
+CREATE TABLE Product_model (
+   id uuid primary key,
+   title text,
+   price integer,
+   description text
+);
+drop table Product_model;
+
+
+
+CREATE TABLE stock_model (
+   product_id uuid primary key default uuid_generate_v4(),
+   count integer,
+   foreign key ("product_id") references "product_model" ("id")
+);
+drop table stock_model;
+
+
+
+
+insert into Product_model (id, title, price, description) values 
+('7567ec4b-b10c-48c5-9345-fc73c48a80a4','Large family book-album', '149','Large family book-album (leather) burgundy'),
+('7567ec4b-b10c-48c5-9345-fc73c48a80a0', 'My goals and achievements book-album', '129', 'My goals and achievements book-album (blue) leather'),
+('7567ec4b-b10c-48c5-9345-fc73c48a80a2', 'Our familys recipes album book', '149', 'Our familys recipes album book (brown) leather'),
+('7567ec4b-b10c-48c5-9345-fc73c48a80a1', 'Advice and love book-album', '120', 'Advice and love book-album (white)'),
+('7567ec4b-b10c-48c5-9345-fc73c48a80a3', 'Our Child Book Album', '149', 'Our Child Book Album (Pink)'),
+('7567ec4b-b10c-48c5-9345-fc73348a80a1', 'Sabaneev. Hunters book', '160', 'Sabaneev. Hunters book'),
+('7567ec4b-b10c-48c5-9445-fc73c48a80a2', 'Sabaneev. Hunters book (in a gift case)', '170', 'Sabaneev. Hunters book (with bronze onlays, in a gift case)'),
+('7567ec4b-b10c-45c5-9345-fc73c48a80a1', 'Gift case', '15', 'Gift case')
+
+
+
+insert into stock_model (product_id, count) values 
+('7567ec4b-b10c-48c5-9345-fc73c48a80a4','129'),
+('7567ec4b-b10c-48c5-9345-fc73348a80a1','150')
