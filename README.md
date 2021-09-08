@@ -1,8 +1,9 @@
-# **Task 3**
+# aws-shop-be
 
-Task [description here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial/blob/main/task3-product-magamanent-api/task.md)
+backend
+BackEnd Repository for AWS web store
 
-Task due date / deadline date - 27.08.2021 / 29.08.21 23:59(GMT+3)
+https://github.com/olya110698/aws-shop-be/pull/2
 
 Self check:
 
@@ -48,4 +49,4 @@ TOTAL POINTS - _**11 points**_
 
 # **Swagger documentation**
 
-https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
+# https://app.swaggerhub.com/apis/SeLub/AWSShopAPI/1.0.0
