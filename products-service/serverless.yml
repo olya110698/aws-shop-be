@@ -18,7 +18,8 @@ service: products-service
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-frameworkVersion: '2'
+frameworkVersion: "2"
+useDotenv: true
 
 provider:
   name: aws
@@ -26,6 +27,12 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: eu-west-1
+  environment:
+    PG_HOST: lesson4.cvglwkuthayx.eu-west-1.rds.amazonaws.com
+    PG_PORT: 5432
+    PG_DATABASE: lesson4
+    PG_USERNAME: olya3230126
+    PG_PASSWORD: olya3230126
 
 plugins:
   - serverless-webpack
@@ -63,10 +70,10 @@ functions:
     handler: functions/getProductsList/getProductsList.handler
     events:
       - http:
-          path: products 
+          path: products
           method: get
           cors: true
-    
+
   getProductsById:
     handler: functions/getProductsById/getProductsById.handler
     events:
