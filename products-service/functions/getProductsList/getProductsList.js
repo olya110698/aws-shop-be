@@ -1,5 +1,4 @@
 import { Client } from "pg";
-//const { Client } = require("pg");
 
 const handleResponse = (products = {}, status = 200) => ({
   headers: {
@@ -29,9 +28,23 @@ let data_export = {},
   error_code = 200;
 
 export const handler = async (event) => {
+  console.log(event);
+
   const client = new Client(credentials);
 
-  await client.connect();
+  client.on("error", (err) => {
+    data_export = "DB Client Error 500:" + err.stack;
+    error_code = 500;
+    console.error("DB Client Error 500:", err.stack);
+  });
+
+  await client
+    .connect()
+    .then(() => console.log("Client connected"))
+    .catch((err) => {
+      data_export = "DB connection error:" + err.stack;
+      error_code = 500;
+    });
 
   await client
     .query(
@@ -39,13 +52,20 @@ export const handler = async (event) => {
     )
     .then((res) => {
       data_export = res.rows;
+      error_code = 200;
     })
-    .catch((e) => {
-      data_export = "DB Error 500:" + e.stack;
+    .catch((err) => {
+      data_export = "DB query error 500:" + err.stack;
       error_code = 500;
     });
 
-  await client.end();
+  await client
+    .end()
+    .then(() => console.log("DB Client disconnected"))
+    .catch((err) => {
+      data_export = "DB disconnection error 500:" + err.stack;
+      error_code = 500;
+    });
 
-  return await handleResponse({ data_export, error_code });
+  return await handleResponse(data_export, error_code);
 };
