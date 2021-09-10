@@ -47,9 +47,7 @@ export const handler = async (event) => {
     });
 
   try {
-    const { title, description, price, imageid, count } = JSON.parse(
-      event.body
-    );
+    const { title, description, price, count } = JSON.parse(event.body);
 
     if (typeof title === "undefined" || title === "") {
       data_export = "Not valid data for product creation";
@@ -60,9 +58,9 @@ export const handler = async (event) => {
     await client.query("BEGIN");
 
     const queryProduct =
-      "INSERT INTO products(title, description, price, imageid) VALUES($1, $2, $3, $4) RETURNING id";
+      "INSERT INTO products(title, description, price) VALUES($1, $2, $3) RETURNING id";
 
-    const valuesProduct = [title, description, price, imageid];
+    const valuesProduct = [title, description, price];
 
     const queryStock = "INSERT INTO stocks(product_id, count) VALUES($1, $2)";
 
@@ -82,7 +80,6 @@ export const handler = async (event) => {
       title,
       description,
       price,
-      imageid,
       count,
       id: productId,
     };

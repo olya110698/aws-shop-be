@@ -82,8 +82,13 @@ functions:
           method: get
           cors: true
 
-  hello:
-    handler: products_and_stocks.invoke
+  createProduct:
+    handler: functions/createProduct/createProduct.handler
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
