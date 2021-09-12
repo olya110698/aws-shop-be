@@ -30,10 +30,6 @@
       "/node_modules/"
     ]
   },
-  "bugs": {
-    "url": "https://github.com/SeLub/shop-aws-be/issues"
-  },
-  "homepage": "https://github.com/SeLub/shop-aws-be#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
     "pg": "^8.7.1"
