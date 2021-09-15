@@ -50,10 +50,10 @@ export const handler = async (event) => {
 
   await client
     .query(
-      `SELECT products.*, stocks.count \
-                        FROM products LEFT JOIN stocks \
-                        ON products.id = stocks.product_id\
-                        WHERE products.id='${productId}'`
+      `SELECT product_model.*, stock_model.count \
+                        FROM product_model LEFT JOIN stock_model \
+                        ON product_model.id = stock_model.product_id\
+                        WHERE product_model.id='${productId}'`
     )
 
     .then((res) => {
