@@ -60,11 +60,12 @@ export const handler = async (event) => {
     await client.query("BEGIN");
 
     const queryProduct =
-      "INSERT INTO products(title, description, price, imageId) VALUES($1, $2, $3, $4) RETURNING id";
+      "INSERT INTO product_model(title, description, price, imageId) VALUES($1, $2, $3, $4) RETURNING id";
 
     const valuesProduct = [title, description, price, imageId];
 
-    const queryStock = "INSERT INTO stocks(product_id, count) VALUES($1, $2)";
+    const queryStock =
+      "INSERT INTO stock_model(product_id, count) VALUES($1, $2)";
 
     const { rows: products } = await client.query(queryProduct, valuesProduct);
 
