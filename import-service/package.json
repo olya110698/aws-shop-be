@@ -1,0 +1,23 @@
+{
+  "name": "import-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "olya110698"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-webpack": "^5.5.4",
+    "webpack": "^5.53.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.991.0",
+    "csv-parser": "^3.0.0"
+  }
+}
