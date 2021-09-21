@@ -18,13 +18,15 @@ service: import-service
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-frameworkVersion: '2'
+frameworkVersion: "2"
 
 provider:
   name: aws
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
 
+plugins:
+  - serverless-webpack
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
@@ -58,8 +60,20 @@ provider:
 #    - include-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  importProductsFile:
+    handler: functions/importProductsFile/importProductsFile.handler
+    events:
+      - s3:
+    bucket: import-service-task-5-olya
+    event: s3:ObjectCreated:*
+    rules:
+      - prefix: uploaded/
+    existing:
+      true
+      # - http:
+      #     path: products
+      #     method: get
+      #     cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
