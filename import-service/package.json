@@ -1,15 +1,19 @@
 {
   "name": "import-service",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Import-service for AWS Shop RSSchool AWS NodeJS 2021Q3",
+  "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "olya110698"
   },
+  "keywords": [
+    "aws",
+    "rsschool"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
