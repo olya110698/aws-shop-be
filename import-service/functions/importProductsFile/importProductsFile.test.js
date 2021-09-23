@@ -1,5 +1,5 @@
 import AWS from "aws-sdk-mock";
-import { handler as importProductsFile } from "../importProductsFile";
+import { handler as importProductsFile } from "./importProductsFile";
 
 const request = (method = "GET", qsParam = { name: "products.csv" }) => {
   return { httpMethod: method, queryStringParameters: qsParam };
