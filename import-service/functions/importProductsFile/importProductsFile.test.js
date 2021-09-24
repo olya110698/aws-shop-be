@@ -1,5 +1,5 @@
 import AWS from "aws-sdk-mock";
-import { handler as importProductsFile } from "./importProductsFile";
+import { handler as importProductsFile } from "./importProductsFile.js";
 
 const request = (method = "GET", qsParam = { name: "products.csv" }) => {
   return { httpMethod: method, queryStringParameters: qsParam };
@@ -19,7 +19,7 @@ const response = (body = {}, stCode = 202) => {
 
 describe("importProductsFile", () => {
   const mockUrl =
-    "https://import-service-task-5-olya.s3.eu-west-1.amazonaws.com/uploaded/products.csv";
+    "https://task-5-csv-uploaded-olya.s3.eu-west-1.amazonaws.com/uploaded/products.csv";
 
   beforeEach(() => {
     AWS.mock("S3", "getSignedUrl", mockUrl);

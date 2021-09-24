@@ -3,7 +3,7 @@ service: import-service
 frameworkVersion: "2"
 
 custom:
-  bucket: import-service-task-5-olya
+  bucket: task-5-csv-uploaded-olya
 
 provider:
   name: aws

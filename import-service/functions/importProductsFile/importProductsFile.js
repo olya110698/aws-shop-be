@@ -21,7 +21,7 @@ export const handler = async (event) => {
   } else {
     let fileName = event["queryStringParameters"]["name"];
 
-    const BACKET = "import-service-task-5-olya"; //BUCKET_NAME
+    const BACKET = "task-5-csv-uploaded-olya"; //BUCKET_NAME
 
     const catalogPath = `uploaded/${fileName}`; // FILE_NAME
 
