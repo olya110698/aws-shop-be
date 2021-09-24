@@ -1,7 +1,7 @@
 {
   "name": "import-service",
   "version": "1.0.0",
-  "description": "Import-service for AWS Shop RSSchool AWS NodeJS 2021Q3",
+  "description": "",
   "main": "handler.js",
   "scripts": {
     "test": "jest"
@@ -10,24 +10,18 @@
     "type": "git",
     "url": "olya110698"
   },
-  "keywords": [
-    "aws",
-    "rsschool"
-  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.6",
-    "aws-sdk-mock": "^5.3.0",
     "jest": "^27.2.1",
     "serverless-webpack": "^5.5.4",
     "webpack": "^5.53.0"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.33.0",
-    "@aws-sdk/s3-request-presigner": "^3.33.0",
-    "aws-sdk": "^2.991.0",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "aws-sdk": "^2.994.0",
+    "aws-sdk-mock": "^5.3.0",
     "csv-parser": "^3.0.0"
   }
 }
