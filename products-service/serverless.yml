@@ -19,6 +19,7 @@ service: products-service
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 frameworkVersion: "2"
+useDotenv: true
 
 provider:
   name: aws
@@ -26,13 +27,15 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: eu-west-1
+  environment:
+    PG_HOST: ${env:PG_HOST}
+    PG_PORT: ${env:PG_PORT}
+    PG_DATABASE: ${env:PG_DATABASE}
+    PG_USERNAME: ${env:PG_USERNAME}
+    PG_PASSWORD: ${env:PG_PASSWORD}
 
 plugins:
   - serverless-webpack
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
-
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -55,7 +58,7 @@ plugins:
 
 # you can add packaging information here
 package:
-individually: true
+  individually: true
 #  patterns:
 #    - '!exclude-me.js'
 #    - '!exclude-me-dir/**'
@@ -77,6 +80,14 @@ functions:
       - http:
           path: products/{productId}
           method: get
+          cors: true
+
+  createProduct:
+    handler: functions/createProduct/createProduct.handler
+    events:
+      - http:
+          path: products
+          method: post
           cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
