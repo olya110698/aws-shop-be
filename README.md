@@ -1,11 +1,9 @@
-# aws-shop-be
+=======
 
-backend
-BackEnd Repository for AWS web store
+# BackEnd Repository for AWS web store
 
-https://github.com/olya110698/aws-shop-be/pull/2
+List of Tasks [here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial)
 
-Self check:
 
 TOTAL POINTS - _**11 points**_
 
@@ -61,4 +59,5 @@ List of Tasks [here](https://github.com/EPAM-JS-Competency-center/cloud-developm
 | ----------- | ------ | ----------------------------------------------------- |
 | Done        | Task-3 | https://github.com/olya110698/aws-shop-be/tree/task-3 |
 | In Progress | Task-4 | https://github.com/olya110698/aws-shop-be/tree/task_4 |
+
 

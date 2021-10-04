@@ -1,5 +1,5 @@
 {
-  "name": "product-service",
+  "name": "products-service",
   "version": "1.0.0",
   "description": "Product service for AWS App",
   "main": "index.js",
@@ -9,9 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SeLub/shop-aws-be.git"
+    "url": "git+https://github.com/olya110698/aws-shop-be"
   },
-  "author": "Sergey Lubimov",
+  "author": "Volha Shupitsa",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -30,8 +30,10 @@
       "/node_modules/"
     ]
   },
-  "bugs": {
-    "url": "https://github.com/SeLub/shop-aws-be/issues"
-  },
-  "homepage": "https://github.com/SeLub/shop-aws-be#readme"
+  "dependencies": {
+    "aws-sdk": "^2.991.0",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^10.0.0",
+    "pg": "^8.7.1"
+  }
 }

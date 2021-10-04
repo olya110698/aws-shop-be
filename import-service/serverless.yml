@@ -1,0 +1,53 @@
+service: import-service
+
+frameworkVersion: "2"
+
+custom:
+  bucket: task-5-csv-uploaded-olya
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: eu-west-1
+  s3:
+    bucketOne:
+      name: ${self:custom.bucket}
+      corsConfiguration:
+        CorsRules:
+          - AllowedMethods:
+              - GET
+              - PUT
+              - DELETE
+            AllowedOrigins:
+              - "*"
+            AllowedHeaders:
+              - "*"
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+functions:
+  importProductsFile:
+    handler: functions/importProductsFile/importProductsFile.handler
+    events:
+      - http:
+          path: /import
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
+
+  importFileParser:
+    handler: functions/importFileParser/importFileParser.handler
+    events:
+      - s3: bucketOne
+        event: s3:ObjectCreated:*
+        rules:
+          - prefix: uploaded/
+          - suffix: .csv
