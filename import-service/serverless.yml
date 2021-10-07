@@ -1,6 +1,7 @@
 service: import-service
 
 frameworkVersion: "2"
+useDotenv: true
 
 custom:
   bucket: task-5-csv-uploaded-olya
@@ -11,6 +12,43 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: eu-west-1
+  environment:
+    PG_HOST: ${env:PG_HOST}
+    PG_PORT: ${env:PG_PORT}
+    PG_DATABASE: ${env:PG_DATABASE}
+    PG_USERNAME: ${env:PG_USERNAME}
+    PG_PASSWORD: ${env:PG_PASSWORD}
+    IMPORT_SQS: ${env:IMPORT_SQS}
+    SQS_URL:
+      Ref: SQSQueue
+    SNS_ARN:
+      Ref: SNSTopic
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:ListBucket
+          Resource:
+            - arn:aws:s3:::${self:custom.bucket}
+
+        - Effect: Allow
+          Action:
+            - s3:*
+          Resource:
+            - arn:aws:s3:::${self:custom.bucket}/*
+
+        - Effect: Allow
+          Action: sqs:*
+          Resource:
+            Fn::GetAtt:
+              - SQSQueue
+              - Arn
+
+        - Effect: Allow
+          Action: sns:*
+          Resource:
+            Ref: SNSTopic
   s3:
     bucketOne:
       name: ${self:custom.bucket}
@@ -24,6 +62,40 @@ provider:
               - "*"
             AllowedHeaders:
               - "*"
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: catalogItemsQueue
+
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: createProductTopic
+
+    SNSSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: technokladez@gmail.com
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+        FilterPolicy:
+          status:
+            - "In Progress"
+
+    SNSFinishParsingSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: siteup24@gmail.com
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+        FilterPolicy:
+          status:
+            - "Done"
+
 plugins:
   - serverless-webpack
 
@@ -51,3 +123,13 @@ functions:
         rules:
           - prefix: uploaded/
           - suffix: .csv
+          
+catalogBatchProcess:
+  handler: functions/catalogBatchProcess/catalogBatchProcess.handler
+    events:
+     - sqs:
+         batchSize: 5
+         arn:
+           Fn::GetAtt:
+             - SQSQueue
+             - Arn

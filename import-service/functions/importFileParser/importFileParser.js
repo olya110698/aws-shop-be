@@ -1,10 +1,28 @@
 import * as S3 from "aws-sdk/clients/s3";
-import parse from "csv-parser";
+import { SQS } from "aws-sdk";
+import csv from "csv-parser";
 
 export const handler = async (event) => {
   const BUCKET = event.Records[0].s3.bucket.name;
 
   const s3 = new S3({ region: "eu-west-1" });
+  const sqs = new AWS.SQS({ region: "eu-west-1" });
+
+  const sendMessageToSQS = async (sqs, messageBody) => {
+    await sqs.sendMessage(
+      {
+        QueueUrl: process.env.IMPORT_SQS,
+        MessageBody: messageBody,
+      },
+      (error, data) => {
+        if (error) {
+          console.log("SQS error", error);
+          throw Error(error);
+        }
+        console.log(`Send message:`, JSON.stringify(data));
+      }
+    );
+  };
 
   let resault = [],
     stCode = "";
@@ -16,10 +34,11 @@ export const handler = async (event) => {
 
       s3.getObject(param)
         .createReadStream()
-        .pipe(parse())
+        .pipe(csv())
         .on("data", (csvline) => {
           console.log(csvline);
           resault.push(csvline);
+          sendMessageToSQS(sqs, JSON.stringify(csvline));
         })
         .on("error", (error) => {
           console.log(error);
@@ -28,7 +47,7 @@ export const handler = async (event) => {
         })
         .on("end", () => {
           stCode = 200;
-          console.log("Reading complete.");
+          console.log("Parsing and sending to SQS are COMPLETED.");
         });
 
       let paramCopy = {
