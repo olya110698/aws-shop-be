@@ -1,10 +1,18 @@
-service: import-service
-
-frameworkVersion: "2"
+ service: 'import-service'
+  
+frameworkVersion: '2'
 useDotenv: true
+ 
+custom: 
+  webpack: 
+    webpackConfig: './webpack.config.js'
+    includeModules: true
 
-custom:
-  bucket: task-5-csv-uploaded-olya
+plugins: 
+  - serverless-webpack 
+
+package:
+  individually: true
 
 provider:
   name: aws
@@ -12,95 +20,51 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: eu-west-1
+  apiGateway: 
+    minimumCompressionSize: 1024
+    shouldStartNameWithService: true
   environment:
-    PG_HOST: ${env:PG_HOST}
-    PG_PORT: ${env:PG_PORT}
-    PG_DATABASE: ${env:PG_DATABASE}
-    PG_USERNAME: ${env:PG_USERNAME}
-    PG_PASSWORD: ${env:PG_PASSWORD}
-    IMPORT_SQS: ${env:IMPORT_SQS}
-    SQS_URL:
-      Ref: SQSQueue
-    SNS_ARN:
-      Ref: SNSTopic
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    BUCKET: ${env:BUCKET}
+    SQS_URL: ${env:SQS_URL}
 
+  #    Fn::ImportValue:
+  #      !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueArn
   iam:
     role:
       statements:
         - Effect: Allow
           Action: s3:ListBucket
           Resource:
-            - arn:aws:s3:::${self:custom.bucket}
+            - arn:aws:s3:::${env:BUCKET}
 
         - Effect: Allow
           Action:
             - s3:*
           Resource:
-            - arn:aws:s3:::${self:custom.bucket}/*
+            - arn:aws:s3:::${env:BUCKET}/*
 
         - Effect: Allow
           Action: sqs:*
           Resource:
-            Fn::GetAtt:
-              - SQSQueue
-              - Arn
+            - ${env:SQS_ARN}
 
-        - Effect: Allow
-          Action: sns:*
-          Resource:
-            Ref: SNSTopic
+  #          Fn::ImportValue:
+  #           !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueLink
+
   s3:
     bucketOne:
-      name: ${self:custom.bucket}
+      name: ${env:BUCKET}
       corsConfiguration:
-        CorsRules:
-          - AllowedMethods:
-              - GET
-              - PUT
-              - DELETE
-            AllowedOrigins:
-              - "*"
-            AllowedHeaders:
-              - "*"
-resources:
-  Resources:
-    SQSQueue:
-      Type: AWS::SQS::Queue
-      Properties:
-        QueueName: catalogItemsQueue
-
-    SNSTopic:
-      Type: AWS::SNS::Topic
-      Properties:
-        TopicName: createProductTopic
-
-    SNSSubscription:
-      Type: AWS::SNS::Subscription
-      Properties:
-        Endpoint: technokladez@gmail.com
-        Protocol: email
-        TopicArn:
-          Ref: SNSTopic
-        FilterPolicy:
-          status:
-            - "In Progress"
-
-    SNSFinishParsingSubscription:
-      Type: AWS::SNS::Subscription
-      Properties:
-        Endpoint: siteup24@gmail.com
-        Protocol: email
-        TopicArn:
-          Ref: SNSTopic
-        FilterPolicy:
-          status:
-            - "Done"
-
-plugins:
-  - serverless-webpack
-
-package:
-  individually: true
+          CorsRules:
+            - AllowedMethods:
+                - GET
+                - PUT
+                - DELETE
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
 
 functions:
   importProductsFile:
@@ -123,13 +87,3 @@ functions:
         rules:
           - prefix: uploaded/
           - suffix: .csv
-          
-catalogBatchProcess:
-  handler: functions/catalogBatchProcess/catalogBatchProcess.handler
-    events:
-     - sqs:
-         batchSize: 5
-         arn:
-           Fn::GetAtt:
-             - SQSQueue
-             - Arn
