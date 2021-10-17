@@ -1,0 +1,89 @@
+service: import-service
+
+frameworkVersion: "2"
+useDotenv: true
+
+custom:
+  webpack:
+    webpackConfig: "./webpack.config.js"
+    includeModules: true
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: eu-west-1
+  apiGateway:
+    minimumCompressionSize: 1024
+    shouldStartNameWithService: true
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    BUCKET: ${env:BUCKET}
+    SQS_URL: ${env:SQS_URL}
+
+  #    Fn::ImportValue:
+  #      !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueArn
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:ListBucket
+          Resource:
+            - arn:aws:s3:::${env:BUCKET}
+
+        - Effect: Allow
+          Action:
+            - s3:*
+          Resource:
+            - arn:aws:s3:::${env:BUCKET}/*
+
+        - Effect: Allow
+          Action: sqs:*
+          Resource:
+            - ${env:SQS_ARN}
+
+  #          Fn::ImportValue:
+  #           !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueLink
+
+  s3:
+    bucketOne:
+      name: ${env:BUCKET}
+      corsConfiguration:
+        CorsRules:
+          - AllowedMethods:
+              - GET
+              - PUT
+              - DELETE
+            AllowedOrigins:
+              - "*"
+            AllowedHeaders:
+              - "*"
+
+functions:
+  importProductsFile:
+    handler: functions/importProductsFile/importProductsFile.handler
+    events:
+      - http:
+          path: /import
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                name: true
+
+  importFileParser:
+    handler: functions/importFileParser/importFileParser.handler
+    events:
+      - s3: bucketOne
+        event: s3:ObjectCreated:*
+        rules:
+          - prefix: uploaded/
+          - suffix: .csv
