@@ -1,15 +1,15 @@
- service: 'import-service'
-  
-frameworkVersion: '2'
+service: import-service
+
+frameworkVersion: "2"
 useDotenv: true
- 
-custom: 
-  webpack: 
-    webpackConfig: './webpack.config.js'
+
+custom:
+  webpack:
+    webpackConfig: "./webpack.config.js"
     includeModules: true
 
-plugins: 
-  - serverless-webpack 
+plugins:
+  - serverless-webpack
 
 package:
   individually: true
@@ -20,7 +20,7 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: eu-west-1
-  apiGateway: 
+  apiGateway:
     minimumCompressionSize: 1024
     shouldStartNameWithService: true
   environment:
@@ -56,15 +56,15 @@ provider:
     bucketOne:
       name: ${env:BUCKET}
       corsConfiguration:
-          CorsRules:
-            - AllowedMethods:
-                - GET
-                - PUT
-                - DELETE
-              AllowedOrigins:
-                - '*'
-              AllowedHeaders:
-                - '*'
+        CorsRules:
+          - AllowedMethods:
+              - GET
+              - PUT
+              - DELETE
+            AllowedOrigins:
+              - "*"
+            AllowedHeaders:
+              - "*"
 
 functions:
   importProductsFile:
