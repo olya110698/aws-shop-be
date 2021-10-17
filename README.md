@@ -1,5 +1,3 @@
-=======
-
 # BackEnd Repository for AWS web store
 
 List of Tasks [here](https://github.com/EPAM-JS-Competency-center/cloud-development-course-initial)
