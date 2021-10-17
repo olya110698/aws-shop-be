@@ -1,0 +1,20 @@
+{
+  "name": "authorization-service",
+  "version": "1.0.0",
+  "description": "Authorization service for AWS Shop",
+  "main": "handler.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "aws",
+    "shop"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-dotenv-plugin": "^3.10.0",
+    "serverless-webpack": "^5.5.4",
+    "webpack": "^5.58.2"
+  }
+}
