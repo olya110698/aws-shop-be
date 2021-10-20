@@ -124,6 +124,14 @@ functions:
           method: post
           cors: true
 
+  deleteProduct:
+    handler: functions/deleteProduct/deleteProduct.handler
+    events:
+      - http:
+          path: delete/{productId}
+          method: get
+          cors: true
+
   catalogBatchProcess:
     handler: functions/catalogBatchProcess/catalogBatchProcess.handler
     events:
