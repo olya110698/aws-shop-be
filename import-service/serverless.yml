@@ -1,4 +1,4 @@
-service: import-service
+service: "import-service"
 
 frameworkVersion: "2"
 useDotenv: true
@@ -7,10 +7,13 @@ custom:
   webpack:
     webpackConfig: "./webpack.config.js"
     includeModules: true
+  dotenv:
+    required:
+      file: true
 
 plugins:
   - serverless-webpack
-
+  - serverless-dotenv-plugin
 package:
   individually: true
 
@@ -26,10 +29,9 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     BUCKET: ${env:BUCKET}
-    SQS_URL: ${env:SQS_URL}
+    SQS_URL: !ImportValue SQSQueueLink
+    SQS_ARN: !ImportValue SQSQueueArn
 
-  #    Fn::ImportValue:
-  #      !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueArn
   iam:
     role:
       statements:
@@ -47,10 +49,7 @@ provider:
         - Effect: Allow
           Action: sqs:*
           Resource:
-            - ${env:SQS_ARN}
-
-  #          Fn::ImportValue:
-  #           !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueLink
+            - !ImportValue SQSQueueArn
 
   s3:
     bucketOne:
@@ -74,6 +73,11 @@ functions:
           path: /import
           method: get
           cors: true
+          authorizer:
+            name: basicAuthorizer
+            type: TOKEN
+            arn: !ImportValue BasicAuthorizerArn
+            identitySource: method.request.header.Authorization
           request:
             parameters:
               querystrings:
@@ -87,3 +91,36 @@ functions:
         rules:
           - prefix: uploaded/
           - suffix: .csv
+
+resources:
+  Resources:
+    RestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: aws-shop
+    GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId: !Ref RestApi
+
+    GatewayResponseUnauthorized:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: UNAUTHORIZED
+        RestApiId: !Ref RestApi
+
+    GatewayResponseDefault5XX:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_5XX
+        RestApiId: !Ref RestApi
