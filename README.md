@@ -9,4 +9,6 @@ List of Tasks [here](https://github.com/EPAM-JS-Competency-center/cloud-developm
 | Done        | Task-3 | https://github.com/olya110698/aws-shop-be/tree/task-3 |
 | Done        | Task-4 | https://github.com/olya110698/aws-shop-be/tree/task_4 |
 | Done        | Task-5 | https://github.com/olya110698/aws-shop-be/tree/task_5 |
-| In progress | Task-6 | https://github.com/olya110698/aws-shop-be/pull/5      |
+| Done        | Task-6 | https://github.com/olya110698/aws-shop-be/pull/5      |
+| Done        | Task-7 | https://github.com/olya110698/aws-shop-be/pull/6      |
+| In progress | Task-8 | https://github.com/olya110698/aws-shop-be/pull/7      |
