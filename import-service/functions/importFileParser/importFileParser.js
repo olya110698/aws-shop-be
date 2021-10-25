@@ -1,13 +1,32 @@
 import * as S3 from "aws-sdk/clients/s3";
+import { SQS } from "aws-sdk";
 import parse from "csv-parser";
 
 export const handler = async (event) => {
   const BUCKET = event.Records[0].s3.bucket.name;
 
   const s3 = new S3({ region: "eu-west-1" });
+  const sqs = new SQS({ region: "eu-west-1" });
+
+  const sendMessageToSQS = async (sqs, messageBody) => {
+    await sqs.sendMessage(
+      {
+        QueueUrl: process.env.SQS_URL,
+        MessageBody: messageBody,
+      },
+      (error, data) => {
+        if (error) {
+          console.log("SQS error: ", error);
+          throw Error(error);
+        }
+        console.log(`Send message to SQS:`, JSON.stringify(data));
+      }
+    );
+  };
 
   let resault = [],
-    stCode = "";
+    stCode = "",
+    number_of_records = 0;
 
   try {
     for (const record of event.Records) {
@@ -20,6 +39,8 @@ export const handler = async (event) => {
         .on("data", (csvline) => {
           console.log(csvline);
           resault.push(csvline);
+          number_of_records += 1;
+          sendMessageToSQS(sqs, JSON.stringify(csvline));
         })
         .on("error", (error) => {
           console.log(error);
@@ -28,7 +49,8 @@ export const handler = async (event) => {
         })
         .on("end", () => {
           stCode = 200;
-          console.log("Reading complete.");
+          console.log("Parsing and sending to SQS are COMPLETE.");
+          sendMessageToSQS(sqs, JSON.stringify({ parsed: number_of_records }));
         });
 
       let paramCopy = {

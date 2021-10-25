@@ -1,9 +1,18 @@
 service: import-service
 
 frameworkVersion: "2"
+useDotenv: true
 
 custom:
-  bucket: task-5-csv-uploaded-olya
+  webpack:
+    webpackConfig: "./webpack.config.js"
+    includeModules: true
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
 
 provider:
   name: aws
@@ -11,9 +20,41 @@ provider:
   lambdaHashingVersion: 20201221
   stage: dev
   region: eu-west-1
+  apiGateway:
+    minimumCompressionSize: 1024
+    shouldStartNameWithService: true
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    BUCKET: ${env:BUCKET}
+    SQS_URL: ${env:SQS_URL}
+
+  #    Fn::ImportValue:
+  #      !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueArn
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:ListBucket
+          Resource:
+            - arn:aws:s3:::${env:BUCKET}
+
+        - Effect: Allow
+          Action:
+            - s3:*
+          Resource:
+            - arn:aws:s3:::${env:BUCKET}/*
+
+        - Effect: Allow
+          Action: sqs:*
+          Resource:
+            - ${env:SQS_ARN}
+
+  #          Fn::ImportValue:
+  #           !Sub cf:${env.PRODUCT_SERVICE}-${self:provider.stage}.SQSQueueLink
+
   s3:
     bucketOne:
-      name: ${self:custom.bucket}
+      name: ${env:BUCKET}
       corsConfiguration:
         CorsRules:
           - AllowedMethods:
@@ -24,11 +65,6 @@ provider:
               - "*"
             AllowedHeaders:
               - "*"
-plugins:
-  - serverless-webpack
-
-package:
-  individually: true
 
 functions:
   importProductsFile:

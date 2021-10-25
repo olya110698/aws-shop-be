@@ -31,13 +31,11 @@ export const handler = async (event) => {
   console.log(event);
 
   const client = new Client(credentials);
-
   client.on("error", (err) => {
     data_export = "DB Client Error 500:" + err.stack;
     error_code = 500;
     console.error("DB Client Error 500:", err.stack);
   });
-
   await client
     .connect()
     .then(() => console.log("Client connected"))
@@ -46,18 +44,30 @@ export const handler = async (event) => {
       error_code = 500;
     });
 
-  await client
-    .query(
-      "SELECT product_model.*, stock_model.count FROM product_model LEFT JOIN stock_model ON product_model.id = stock_model.product_id"
-    )
-    .then((res) => {
-      data_export = res.rows;
-      error_code = 200;
-    })
-    .catch((err) => {
-      data_export = "DB query error 500:" + err.stack;
-      error_code = 500;
-    });
+  try {
+    await client.query("BEGIN");
+    await client
+      .query(
+        "SELECT product_model.*, stock_model.count FROM product_model LEFT JOIN stock_model ON product_model.id = stock_model.product_id"
+      )
+      .then((res) => {
+        data_export = res.rows;
+        error_code = 200;
+      })
+      .catch((err) => {
+        data_export = "DB query error 500:" + err.stack;
+        error_code = 500;
+      });
+    await client.query("COMMIT");
+  } catch (error) {
+    try {
+      await client.query("ROLLBACK");
+    } catch (rollbackError) {
+      console.log("A rollback error occurred:", rollbackError);
+    }
+
+    console.log("An error occurred:", error);
+  }
 
   await client
     .end()
