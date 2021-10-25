@@ -35,8 +35,6 @@ provider:
     SQSQueueName: ${env:SQSQueueName}
     SNSTopicName: ${env:SNSTopicName}
     BATCH_SQS_SIZE: ${env:BATCH_SQS_SIZE}
-    SQS_URL:
-      Ref: SQSQueue
     SNS_ARN:
       Ref: SNSTopic
 
@@ -45,10 +43,7 @@ provider:
       statements:
         - Effect: Allow
           Action: sqs:*
-          Resource:
-            Fn::GetAtt:
-              - SQSQueue
-              - Arn
+          Resource: !GetAtt SQSQueue.Arn
 
         - Effect: Allow
           Action: sns:*
@@ -56,6 +51,19 @@ provider:
             Ref: SNSTopic
 
 resources:
+  Outputs:
+    SQSQueueUrl:
+      Value:
+        Ref: SQSQueue
+      Export:
+        Name: SQSQueueLink
+
+    SQSQueueArn:
+      Value:
+        Fn::GetAtt: [SQSQueue, Arn]
+      Export:
+        Name: SQSQueueArn
+
   Resources:
     SQSQueue:
       Type: AWS::SQS::Queue
@@ -88,17 +96,6 @@ resources:
         FilterPolicy:
           Price:
             - ${env:HIGHT_PRICE}
-
-outputs:
-  SQSQueueLink:
-    Value:
-      Ref: SQSQueue
-  SQSQueueArn:
-    Value:
-      Fn::GetAtt:
-        - SQSQueue
-        - Arn
-
 functions:
   getProductsList:
     handler: functions/getProductsList/getProductsList.handler
@@ -137,7 +134,4 @@ functions:
     events:
       - sqs:
           batchSize: ${env:BATCH_SQS_SIZE}
-          arn:
-            Fn::GetAtt:
-              - SQSQueue
-              - Arn
+          arn: !GetAtt SQSQueue.Arn
