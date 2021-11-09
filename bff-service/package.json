@@ -1,0 +1,24 @@
+{
+  "name": "bff-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eb:init": "eb init selub-bff-api",
+    "eb:create": "eb create selub-bff-api-env -p node.js-12 --cname selub-bff-api-dev --single -r eu-central-1",
+    "eb:deploy": "eb deploy -r eu-central-1 selub-bff-api-env",
+    "deploy": "npm run build && npm run eb:deploy",
+    "start": "node server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "node-cache": "^5.1.2"
+  }
+}
